@@ -1,0 +1,57 @@
+<div class="card" >
+  <h4 class="card-header">Search User</h4>
+  <div class="card-block">
+    <form class="form-inline" [formGroup]="searchForm" (ngSubmit)="search()" style="text-align:center">
+      <div class="form-group">
+          <input class="form-control" type="text" name="firstName" formControlName="firstName" placeholder="First Name">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="phoneNumber" formControlName="phoneNumber" placeholder="Phone Number">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="area" formControlName="area" placeholder="area">
+      </div>
+       <div class="form-group">
+        <input class="form-control" type="text" name="role" formControlName="role" placeholder="role">
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="!searchForm.valid"><i class="fa fa-search"></i> Search</button>
+    </form>
+  </div>
+</div> 
+
+<div class="card">
+    <h4 class="card-header">User List</h4>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-default">
+        <tr>
+          <th class="w30"><input type="checkbox" name="all" [checked]="isAllChecked()" (change)="checkAll($event)"/></th>
+          <th>User Name</th>
+          <th>PhoneNumber</th>
+          <th>email</th>
+          <th>area</th>          
+          <th>city</th>
+          <th>role</th>
+          <th>Actions</th>          
+        </tr>
+      </thead>          
+      <tbody >
+        <tr *ngFor="let user of users">
+          <td class="w30"><input type="checkbox" name="sizecb[]" value="{{user._id}}" [(ngModel)]="user.userState" /></td>
+          <td>{{user.firstName}}</td>
+          <td>{{user.phoneNumber}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.area}}</td>        
+          <td>{{user.city}}</td>
+           <td>{{user.role}}</td>
+          <td>
+            <button class="btn btn-sm btn-warning"><i class="fa fa-eye" (click)="viewDeviceDetail(user._id)"></i> View</button>
+            <button class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteDevice(user)"><i class="fa fa-trash"></i> Delete</button>
+          </td>   
+        </tr>  
+      </tbody>      
+    </table>
+    
+  </div>
+
+<app-device-detail [device]="selectedDevice"></app-device-detail>
